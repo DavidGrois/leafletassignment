@@ -72,3 +72,4 @@ var features = {
 var layerControl = L.control
   .layers(null, features, { position: 'bottomleft' })
   .addTo(map)
+// TODO: add legend, or a ? button with explanaition. maybe drag rectangle mark then count signs inside
