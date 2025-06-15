@@ -14,11 +14,11 @@ function inspectData(data) {
     }
   })
 
-  console.log('length: ', map.size)
+  // console.log('length: ', map.size)
 
   var mapsorted = new Map([...map.entries()].sort((a, b) => b[1] - a[1]))
 
-  console.log(mapsorted)
+  // console.log(mapsorted)
   // console.log(...map.entries())
   // console.log(map)
 }

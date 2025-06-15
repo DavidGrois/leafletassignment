@@ -99,10 +99,35 @@ const drawCtl = new L.Control.Draw({
 map.addControl(drawCtl)
 
 map.on(L.Draw.Event.CREATED, (e) => {
+  const active = document.getElementsByClassName('active')[0].id
+  console.log('active', active)
+  var coords = []
+  switch (active) {
+    case 'all':
+      coords = layers[0]._latlngs
+      break
+    case 'vorrang':
+      coords = layers[1]._latlngs
+      break
+    case 'halten':
+      coords = layers[2]._latlngs
+      break
+    case 'zebra':
+      coords = layers[3]._latlngs
+      break
+    case 'kinder':
+      coords = layers[4]._latlngs
+      break
+    case 'zone':
+      coords = layers[5]._latlngs
+      break
+    default:
+      coords = layers[0]._latlngs
+      break
+  }
+  console.log('coords', coords)
   const b = e.layer.getBounds()
-  const hits = data.features.filter((c) =>
-    b.contains([c.geometry.coordinates[1], c.geometry.coordinates[0]])
-  ).length
+  const hits = coords.filter((c) => b.contains([c[0], c[1]])).length
 
   L.popup()
     .setLatLng(b.getCenter())
