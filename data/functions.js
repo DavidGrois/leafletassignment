@@ -24,7 +24,7 @@ function inspectData(data) {
 }
 
 function groupData(signData, intensityTotal, intensity, options) {
-  // group data in: Vorrang geben, Kennzeichnung eines Schutzweg (Fußgängerübergang), Kinder, Zonenbeschränkung (30) merged with Ende der Zonenbeschränkung (30)
+  // group data in: Vorrang geben, Kennzeichnung eines Schutzweg (Fußgängerübergang), Halt, Zonenbeschränkung (30) merged with Ende der Zonenbeschränkung (30)
   return [
     L.heatLayer(convertToHeatmapFormat(signData, intensityTotal), options),
     L.heatLayer(DataOfType(signData, 'Vorrang geben', intensity), options),
@@ -40,7 +40,7 @@ function groupData(signData, intensityTotal, intensity, options) {
       ),
       options
     ),
-    L.heatLayer(DataOfType(signData, 'Kinder', intensity), options),
+    L.heatLayer(DataOfType(signData, 'Halt', intensity), options),
     L.heatLayer(
       DataOfType(signData, 'Zonenbeschränkung (30)', intensity).concat(
         DataOfType(signData, 'Ende der Zonenbeschränkung (30)', intensity)

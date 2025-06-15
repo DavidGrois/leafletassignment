@@ -37,14 +37,48 @@
         <button id="zebra">
           <img src="assets/zebra.png" alt="Fußgängerübergang Schild" />
         </button>
-        <button id="kinder">
-          <img src="assets/kinder.png" alt="Achtung Kinder Schild" />
+        <button id="halt">
+          <img src="assets/halt.png" alt="Stop Schild" />
         </button>
         <button id="zone">
           <img src="assets/zone.png" alt="Dreißiger Zone Schild" />
         </button>
       </div>
+      <p id="info">Info</p>
+      <div id="infoBox" class="info hidden">
+        <img src="assets/info.png" alt="info" id="infoPic" />
+        <img src="assets/arrow-left.svg" alt="arrow" id="arrow" />
+        <img src="assets/arrow-left.svg" alt="arrow" id="arrow2" />
+        <p id="text1">
+          Mit diesem Tool kann ein Rechteck gezeichnet werden.<br />Dannach wird
+          angezeigt wie viele Straßenschilder innerhalb des Rechtecks sind.
+        </p>
+        <p id="text2">
+          Ein Klick auf ein Schild rechts zeigt nur noch dieses auf der Karte
+          an.
+        </p>
+        <img src="assets/x.svg" alt="close" id="close" />
+      </div>
+      <div id="boxCover" class="hidden"></div>
     </div>
     <script src="js/main.js"></script>
+    <script>
+      // Info Overlay functionality
+
+      const infoBox = document.getElementById('infoBox')
+      const cover = document.getElementById('boxCover')
+      const close = document.getElementById('close')
+      const info = document.getElementById('info')
+
+      console.log(close)
+
+      function toggleHidden() {
+        infoBox.classList.toggle('hidden')
+        cover.classList.toggle('hidden')
+      }
+
+      close.onclick = toggleHidden
+      info.onclick = toggleHidden
+    </script>
   </body>
 </html>

@@ -5,8 +5,7 @@ body {
   height: 100vh;
   overflow-x: hidden;
   font-family: 'Helvetica Neue', Arial, Helveticam sans-serif;
-  /* display: flex; */
-  /* justify-content: space-between; */
+  background-color: rgb(236, 236, 236);
 }
 
 #left {
@@ -19,11 +18,11 @@ body {
 #map {
   height: 90%;
   width: calc(100% - 10px);
-  /* left: 10px; */
   top: 5%;
   overflow: hidden;
   position: absolute;
   border: 1px #444 solid;
+  z-index: 0;
 }
 
 #right {
@@ -33,6 +32,7 @@ body {
   right: 0;
   padding-right: 10px;
   padding-top: 5vh;
+  z-index: 10;
 }
 
 h1 {
@@ -42,7 +42,7 @@ h1 {
   z-index: 2;
   width: 100%;
   text-align: center;
-  margin-bottom: 6rem;
+  margin-bottom: 3rem;
 }
 
 #buttons {
@@ -54,7 +54,8 @@ h1 {
 
 button {
   padding: 0;
-  width: 40%;
+  width: 10vw;
+  height: 17vh;
   max-height: 12rem;
   background: none;
   border: none;
@@ -85,4 +86,89 @@ button > p {
   background-image: url('../assets/check.png');
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+#info {
+  position: absolute;
+  bottom: 5%;
+  right: 15%;
+  cursor: pointer;
+  color: darkblue;
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+#infoBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 55vh;
+  width: 40vw;
+  z-index: 100;
+  background-color: rgb(236, 236, 236);
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+#infoBox > p,
+#infoBox > img {
+  position: absolute;
+}
+
+#infoPic {
+  top: 1rem;
+  left: 1rem;
+  height: 12rem;
+}
+
+#arrow {
+  height: 4rem;
+  top: 7.8rem;
+  left: 5rem;
+}
+
+#text1 {
+  width: 15rem;
+  top: 13rem;
+  left: 1rem;
+  line-height: 1.3rem;
+  font-size: 1.2rem;
+}
+
+#text2 {
+  width: 15rem;
+  top: 3rem;
+  right: 1rem;
+  line-height: 1.3rem;
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+#arrow2 {
+  height: 7rem;
+  top: 8rem;
+  right: 1rem;
+  transform: scale(-1);
+}
+
+#close {
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+#boxCover {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(61, 61, 61, 0.596);
+}
+
+.hidden {
+  visibility: hidden;
+  pointer-events: none;
 }

@@ -8,7 +8,7 @@
 //the map window has been given the id 'map' in the .html file
 var map = L.map('map', {
   center: [47.8035, 13.049],
-  zoom: 14
+  zoom: 13
 })
 
 //adding base map/s
@@ -28,16 +28,14 @@ var osmap = L.tileLayer(
 // inspectData(data)
 
 const options = {
-  radius: 23,
+  radius: 15,
   blur: 12,
-  minOpacity: 0.2
-  // gradient: {
-  //   0.5: '#2dc937',
-  //   0.6: '#99c140',
-  //   0.85: '#e7b416',
-  //   0.925: '#db7b2b',
-  //   1.0: '#cc3232'
-  // }
+  minOpacity: 0.3,
+  gradient: {
+    0.5: '#008450',
+    0.8: '#EFB700',
+    1.0: '#B81D13'
+  }
 }
 var layers = groupData(data, 0.65, 0.8, options)
 
@@ -45,7 +43,7 @@ layers[0].addTo(map)
 
 L.control.scale({ position: 'bottomright', imperial: false }).addTo(map)
 
-var buttons = ['all', 'vorrang', 'halten', 'zebra', 'kinder', 'zone']
+var buttons = ['all', 'vorrang', 'halten', 'zebra', 'halt', 'zone']
 
 buttons.forEach((btnId, i) => {
   const button = document.getElementById(btnId)
@@ -72,15 +70,13 @@ var outline = L.geoJson(salzburg, {
 //   'all Signs': layers[0],
 //   Vorrang: layers[1],
 //   Fußgängerübergang: layers[2],
-//   Kinder: layers[3],
+//   Halt: layers[3],
 //   '30ger Zone': layers[4]
 // }
 
 // var layerControl = L.control
 //   .layers(null, features, { position: 'bottomleft' })
 //   .addTo(map)
-
-// TODO: add legend, or a ? button with explanaition. maybe drag rectangle mark then count signs inside
 
 const drawn = L.featureGroup().addTo(map) // holds the rectangle
 const points = L.featureGroup().addTo(map)
@@ -100,7 +96,6 @@ map.addControl(drawCtl)
 
 map.on(L.Draw.Event.CREATED, (e) => {
   const active = document.getElementsByClassName('active')[0].id
-  console.log('active', active)
   var coords = []
   switch (active) {
     case 'all':
@@ -115,7 +110,7 @@ map.on(L.Draw.Event.CREATED, (e) => {
     case 'zebra':
       coords = layers[3]._latlngs
       break
-    case 'kinder':
+    case 'halt':
       coords = layers[4]._latlngs
       break
     case 'zone':
@@ -125,7 +120,6 @@ map.on(L.Draw.Event.CREATED, (e) => {
       coords = layers[0]._latlngs
       break
   }
-  console.log('coords', coords)
   const b = e.layer.getBounds()
   const hits = coords.filter((c) => b.contains([c[0], c[1]])).length
 
