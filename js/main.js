@@ -15,7 +15,7 @@ var map = L.map('map', {
 
 // add open street map as base layer
 var osmap = L.tileLayer(
-  'https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}@2x.png',
+  'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
   {
     minZoom: 0,
     maxZoom: 20,
@@ -25,22 +25,19 @@ var osmap = L.tileLayer(
   }
 ).addTo(map)
 
-// for using the two base maps in the layer control, I defined a baseMaps variable
-var baseMaps = {
-  'Open Street Map': osmap
-}
-
-// var totalHeatData = data.features.map(function (feature) {
-//   var coords = feature.geometry.coordinates
-//   return [coords[1], coords[0], 0.45]
-// })
-
 // inspectData(data)
 
 const options = {
   radius: 23,
   blur: 12,
-  minOpacity: 0.23
+  minOpacity: 0.2
+  // gradient: {
+  //   0.5: '#2dc937',
+  //   0.6: '#99c140',
+  //   0.85: '#e7b416',
+  //   0.925: '#db7b2b',
+  //   1.0: '#cc3232'
+  // }
 }
 var layers = groupData(data, 0.65, 0.8, options)
 
@@ -62,7 +59,15 @@ buttons.forEach((btnId, i) => {
   }
 })
 
-// Not adding a layer control, as the sign buttons are the layer control and activating multiple heatlayers does not merge the data. just makes it unreadable
+// adds outline of salzburg, fillOpacity 0 for only outline
+var outline = L.geoJson(salzburg, {
+  color: '#222',
+  weight: 3,
+  opacity: 0.5,
+  fillOpacity: 0
+}).addTo(map)
+
+// Not adding a layer control, as the sign buttons are the layer control and activating multiple heatlayers does not merge the data. it just makes it unreadable
 // var features = {
 //   'all Signs': layers[0],
 //   Vorrang: layers[1],
@@ -82,7 +87,7 @@ const points = L.featureGroup().addTo(map)
 
 const drawCtl = new L.Control.Draw({
   draw: {
-    rectangle: { shapeOptions: { color: '#00A0E4' } },
+    rectangle: { shapeOptions: { color: '#222' } },
     polygon: false,
     circle: false,
     polyline: false,
@@ -101,6 +106,10 @@ map.on(L.Draw.Event.CREATED, (e) => {
 
   L.popup()
     .setLatLng(b.getCenter())
-    .setContent(`${hits} point${hits !== 1 ? 's' : ''} in area`)
+    .setContent(
+      `${hits.toLocaleString('de-AT')} Straßenschild${
+        hits !== 1 ? 'er' : ''
+      } in diesem Gebiet`
+    )
     .openOn(map)
 })
