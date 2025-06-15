@@ -1,13 +1,12 @@
-
 //definition of the function onClick
-function onClick(evt){
-	alert(evt.latlng);
+function onClick(evt) {
+  alert(evt.latlng)
 }
-*/
+
 //map.addEventListener('click', onClick);
 
 //short version (on is an alias for addEventListener):
-//map.on('click', onClick);
+map.on('click', onClick)
 
 //
 //---- Part 5: Adding GeoJSON features and interactivity

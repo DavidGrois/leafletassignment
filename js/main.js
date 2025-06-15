@@ -35,7 +35,8 @@ var baseMaps = {
 //   return [coords[1], coords[0], 0.45]
 // })
 
-inspectData(data)
+// inspectData(data)
+
 const options = {
   radius: 23,
   blur: 12,
@@ -61,15 +62,45 @@ buttons.forEach((btnId, i) => {
   }
 })
 
-var features = {
-  'all Signs': layers[0],
-  Vorrang: layers[1],
-  Fußgängerübergang: layers[2],
-  Kinder: layers[3],
-  '30ger Zone': layers[4]
-}
+// Not adding a layer control, as the sign buttons are the layer control and activating multiple heatlayers does not merge the data. just makes it unreadable
+// var features = {
+//   'all Signs': layers[0],
+//   Vorrang: layers[1],
+//   Fußgängerübergang: layers[2],
+//   Kinder: layers[3],
+//   '30ger Zone': layers[4]
+// }
 
-var layerControl = L.control
-  .layers(null, features, { position: 'bottomleft' })
-  .addTo(map)
+// var layerControl = L.control
+//   .layers(null, features, { position: 'bottomleft' })
+//   .addTo(map)
+
 // TODO: add legend, or a ? button with explanaition. maybe drag rectangle mark then count signs inside
+
+const drawn = L.featureGroup().addTo(map) // holds the rectangle
+const points = L.featureGroup().addTo(map)
+
+const drawCtl = new L.Control.Draw({
+  draw: {
+    rectangle: { shapeOptions: { color: '#00A0E4' } },
+    polygon: false,
+    circle: false,
+    polyline: false,
+    marker: false,
+    circlemarker: false
+  },
+  edit: false
+})
+map.addControl(drawCtl)
+
+map.on(L.Draw.Event.CREATED, (e) => {
+  const b = e.layer.getBounds()
+  const hits = data.features.filter((c) =>
+    b.contains([c.geometry.coordinates[1], c.geometry.coordinates[0]])
+  ).length
+
+  L.popup()
+    .setLatLng(b.getCenter())
+    .setContent(`${hits} point${hits !== 1 ? 's' : ''} in area`)
+    .openOn(map)
+})
