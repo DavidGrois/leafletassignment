@@ -89,9 +89,10 @@ button > p {
 }
 
 #info {
+  text-decoration: underline;
   position: absolute;
   bottom: 5%;
-  right: 15%;
+  right: 35%;
   cursor: pointer;
   color: darkblue;
   font-size: 1.4rem;
@@ -159,6 +160,70 @@ button > p {
 }
 
 #boxCover {
+  display: block;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(61, 61, 61, 0.596);
+}
+
+#source {
+  position: absolute;
+  bottom: 5%;
+  right: 15%;
+  cursor: pointer;
+  color: darkblue;
+  font-size: 1.4rem;
+  margin: 0;
+  text-decoration: underline;
+}
+
+#sourceBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 25vh;
+  width: 40vw;
+  z-index: 100;
+  background-color: rgb(236, 236, 236);
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+#sourceBox > img {
+  position: absolute;
+}
+
+#sourceBox div {
+  position: absolute;
+}
+
+#sourceBox > div > p {
+  margin: 3px;
+}
+
+#cc-attribution {
+  top: 1rem;
+  left: 1rem;
+  width: 80%;
+}
+
+#bilder {
+  top: 7rem;
+  left: 1rem;
+  width: 80%;
+}
+
+#closesource {
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+#sourceboxCover {
   display: block;
   height: 100vh;
   width: 100vw;

@@ -60,17 +60,58 @@
         <img src="assets/x.svg" alt="close" id="close" />
       </div>
       <div id="boxCover" class="hidden"></div>
+      <p id="source">Quelle</p>
+      <div id="sourceBox" class="source hidden">
+        <div id="cc-attribution">
+          <p>
+            <strong>Titel</strong>:
+            <em>Verkehrszeichen in der Stadt Salzburg</em>
+          </p>
+          <p>
+            <strong>Quelle</strong>:
+            <a
+              href="https://www.data.gv.at/katalog/dataset/verkehrszeichen-in-der-stadt-salzburg"
+              target="_blank"
+              rel="noopener"
+              >data.gv.at</a
+            >
+          </p>
+          <p>
+            <strong>Lizenz</strong>: Lizenziert unter
+            <a
+              href="https://creativecommons.org/licenses/by-sa/3.0/at/"
+              target="_blank"
+              rel="license noopener">
+              Creative Commons Namensnennung - Weitergabe unter gleichen
+              Bedingungen 3.0 Österreich (CC BY-SA 3.0 AT)
+            </a>
+          </p>
+        </div>
+        <div id="bilder">
+          <p>
+            <strong>Straßenschild Bilder</strong>:
+            <a
+              href="https://de.wikipedia.org/wiki/Bildtafel_der_Verkehrszeichen_in_%C3%96sterreich"
+              >WikiMedia</a
+            >
+            zB:
+            <a
+              href="https://commons.wikimedia.org/wiki/File:Vorschriftszeichen_13b.svg"
+              >13b: Halten und Parken verboten
+            </a>
+          </p>
+        </div>
+        <img src="assets/x.svg" alt="close" id="closesource" />
+      </div>
+      <div id="sourceboxCover" class="hidden"></div>
     </div>
     <script src="js/main.js"></script>
     <script>
-      // Info Overlay functionality
-
+      // Overlay functionality
       const infoBox = document.getElementById('infoBox')
       const cover = document.getElementById('boxCover')
       const close = document.getElementById('close')
       const info = document.getElementById('info')
-
-      console.log(close)
 
       function toggleHidden() {
         infoBox.classList.toggle('hidden')
@@ -79,6 +120,21 @@
 
       close.onclick = toggleHidden
       info.onclick = toggleHidden
+      cover.onclick = toggleHidden
+
+      const sourceBox = document.getElementById('sourceBox')
+      const coversource = document.getElementById('sourceboxCover')
+      const closesource = document.getElementById('closesource')
+      const source = document.getElementById('source')
+
+      function toggleHiddenSource() {
+        sourceBox.classList.toggle('hidden')
+        coversource.classList.toggle('hidden')
+      }
+
+      closesource.onclick = toggleHiddenSource
+      source.onclick = toggleHiddenSource
+      coversource.onclick = toggleHiddenSource
     </script>
   </body>
 </html>
