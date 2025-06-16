@@ -33,14 +33,17 @@ body {
   padding-right: 10px;
   padding-top: 5vh;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   margin: 0;
-  font-size: 3rem;
+  font-size: 2.5rem;
   color: black;
   z-index: 2;
-  width: 100%;
+  width: 80%;
   text-align: center;
   margin-bottom: 3rem;
 }
@@ -88,11 +91,15 @@ button > p {
   background-size: contain;
 }
 
-#info {
-  text-decoration: underline;
+#clickables {
   position: absolute;
   bottom: 5%;
-  right: 35%;
+  margin: 0;
+  right: 5rem;
+}
+
+#info {
+  text-decoration: underline;
   cursor: pointer;
   color: darkblue;
   font-size: 1.4rem;
@@ -170,13 +177,10 @@ button > p {
 }
 
 #source {
-  position: absolute;
-  bottom: 5%;
-  right: 15%;
   cursor: pointer;
   color: darkblue;
   font-size: 1.4rem;
-  margin: 0;
+  margin: 0 0 0 1rem;
   text-decoration: underline;
 }
 

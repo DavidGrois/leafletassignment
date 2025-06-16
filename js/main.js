@@ -1,19 +1,10 @@
-// Using Leaflet for creating the map and adding controls for interacting with the map
-
-//
-//--- Part 1: adding base maps ---
-//
-
-//creating the map; defining the location in the center of the map (geographic coords) and the zoom level. These are properties of the leaflet map object
-//the map window has been given the id 'map' in the .html file
+//creating the map; defining the location in the center of the map (geographic coords) and the zoom level
 var map = L.map('map', {
   center: [47.8035, 13.049],
   zoom: 13
 })
 
-//adding base map/s
-
-// add open street map as base layer
+// add stadia map as base layer
 var osmap = L.tileLayer(
   'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
   {
@@ -25,6 +16,7 @@ var osmap = L.tileLayer(
   }
 ).addTo(map)
 
+// debugging/data exploration function
 // inspectData(data)
 
 const options = {
