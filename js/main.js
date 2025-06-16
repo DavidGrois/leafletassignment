@@ -19,6 +19,8 @@ var osmap = L.tileLayer(
 // debugging/data exploration function
 // inspectData(data)
 
+// options for the heatmaps, radius of the points, how blurred they are, opacity they should start with at base zoom
+// gradient for the colors. i used green->yellow->red to imitate traffic light colors, as it fits the theme
 const options = {
   radius: 15,
   blur: 12,
@@ -29,14 +31,23 @@ const options = {
     1.0: '#B81D13'
   }
 }
+
+// creates an array of heatmap layers, 0.65 and 0.8 are the intensity of the heat. 0.65 is for the layer with all data -> smaller value makes it readable
+// 0.8 is the intensity for every other layer
 var layers = groupData(data, 0.65, 0.8, options)
 
+// adds the layer with all data to the map as the layer shown when opening the webpage
 layers[0].addTo(map)
 
-L.control.scale({ position: 'bottomright', imperial: false }).addTo(map)
+// adds a scale to the bottom left of the map
+L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map)
 
+// these are the IDs of the html buttons,
 var buttons = ['all', 'vorrang', 'halten', 'zebra', 'halt', 'zone']
 
+// iterating through the button ids, which assigns onclick listeners to display the clicked layer
+// this is my layer control, i made my own version of a layer control for better usability and so that i can use sign images as buttons
+// still adding the built-in layercontrol would allow users to activate multiple heat layers at once, which makes the map unreadable as this does not merge the data: they are just rendered on top of each other
 buttons.forEach((btnId, i) => {
   const button = document.getElementById(btnId)
   button.onclick = () => {
@@ -49,7 +60,8 @@ buttons.forEach((btnId, i) => {
   }
 })
 
-// adds outline of salzburg, fillOpacity 0 for only outline
+// adds outline of salzburg, fillOpacity 0 for just outline
+// uses geojson data of the cities area
 var outline = L.geoJson(salzburg, {
   color: '#222',
   weight: 3,
@@ -57,22 +69,7 @@ var outline = L.geoJson(salzburg, {
   fillOpacity: 0
 }).addTo(map)
 
-// Not adding a layer control, as the sign buttons are the layer control and activating multiple heatlayers does not merge the data. it just makes it unreadable
-// var features = {
-//   'all Signs': layers[0],
-//   Vorrang: layers[1],
-//   Fußgängerübergang: layers[2],
-//   Halt: layers[3],
-//   '30ger Zone': layers[4]
-// }
-
-// var layerControl = L.control
-//   .layers(null, features, { position: 'bottomleft' })
-//   .addTo(map)
-
-const drawn = L.featureGroup().addTo(map) // holds the rectangle
-const points = L.featureGroup().addTo(map)
-
+// enables the draw control for the leaflet draw plugin, only allows drawing of a rectangle with a grey outline color
 const drawCtl = new L.Control.Draw({
   draw: {
     rectangle: { shapeOptions: { color: '#222' } },
@@ -86,9 +83,14 @@ const drawCtl = new L.Control.Draw({
 })
 map.addControl(drawCtl)
 
+// a listener for the map itself which listens for a create event from the draw plugin
 map.on(L.Draw.Event.CREATED, (e) => {
+  // gets the ID of the active heatlayer button from an array of every html element with the active class (which should only every be 1 button)
   const active = document.getElementsByClassName('active')[0].id
+
   var coords = []
+
+  // assigns the correct latitude longitude data arrays from the heatlayers to the coords variable which is later used to compute the amount of signs inside the rectangle
   switch (active) {
     case 'all':
       coords = layers[0]._latlngs
@@ -112,11 +114,16 @@ map.on(L.Draw.Event.CREATED, (e) => {
       coords = layers[0]._latlngs
       break
   }
-  const b = e.layer.getBounds()
-  const hits = coords.filter((c) => b.contains([c[0], c[1]])).length
 
+  // gets the shape data from the draw event, which fired when a user drew a rectangle. this gives us the coordinates of the rectangle in the map
+  const bounds = e.layer.getBounds()
+
+  // this checks every sign of the active layer, if a sign is inside the rectangle it gets stored in the return array of the filter function, the length of this array is the amount of signs inside the drawn rectangle
+  const hits = coords.filter((c) => bounds.contains([c[0], c[1]])).length
+
+  // adds a popup at the center of the drawn rectangle displaying the number of signs inside
   L.popup()
-    .setLatLng(b.getCenter())
+    .setLatLng(bounds.getCenter())
     .setContent(
       `${hits.toLocaleString('de-AT')} Straßenschild${
         hits !== 1 ? 'er' : ''

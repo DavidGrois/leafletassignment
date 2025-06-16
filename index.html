@@ -93,13 +93,25 @@
             <strong>Straßenschild Bilder</strong>:
             <a
               href="https://de.wikipedia.org/wiki/Bildtafel_der_Verkehrszeichen_in_%C3%96sterreich"
+              target="_blank"
               >WikiMedia</a
             >
             zB:
             <a
               href="https://commons.wikimedia.org/wiki/File:Vorschriftszeichen_13b.svg"
+              target="_blank"
               >13b: Halten und Parken verboten
             </a>
+          </p>
+        </div>
+        <div id="outline">
+          <p>
+            <strong>GeoJSON für Salzburg Outline</strong>:
+            <a
+              href="https://tools.paintmaps.com/map-cropping/AT/4-102049779/samples"
+              target="_blank"
+              >tools.paintmaps.com</a
+            >
           </p>
         </div>
         <img src="assets/x.svg" alt="close" id="closesource" />
@@ -114,6 +126,7 @@
       const close = document.getElementById('close')
       const info = document.getElementById('info')
 
+      // toggle hidden class on the info overlay
       function toggleHidden() {
         infoBox.classList.toggle('hidden')
         cover.classList.toggle('hidden')
@@ -133,6 +146,7 @@
         coversource.classList.toggle('hidden')
       }
 
+      // toggle hidden class on the source overlay
       closesource.onclick = toggleHiddenSource
       source.onclick = toggleHiddenSource
       coversource.onclick = toggleHiddenSource
