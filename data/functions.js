@@ -31,21 +31,40 @@ function inspectData(data) {
 // this creates an array of heatlayers, coding it this way makes it more readable. it is an array, and not an object, because i need to iterate through the layers when changing which layer is active
 // first layer contains all data, all others contain specific signs matched to the VZNR of the geoJson features, which is basically the ID of every type of sign (i think)
 // intensity and options are given to the function when its called in main.js
+// also returnes the length of the arrays with the filtered data, to display the amount of signs shown
 function groupData(signData, intensityTotal, intensity, options) {
-  // group data in: Vorrang geben, Kennzeichnung eines Schutzweg (Fußgängerübergang), Halt, Zonenbeschränkung (30) merged with Ende der Zonenbeschränkung (30)
-  return [
-    L.heatLayer(convertToHeatmapFormat(signData, intensityTotal), options),
-    L.heatLayer(DataOfType(signData, '52-23', intensity), options),
-    L.heatLayer(DataOfType(signData, '52-13b', intensity), options),
-    L.heatLayer(DataOfType(signData, '53-02a', intensity), options),
-    L.heatLayer(DataOfType(signData, '52-24', intensity), options),
-    L.heatLayer(
-      DataOfType(signData, '52-11b_01', intensity).concat(
-        DataOfType(signData, '52-11a_01', intensity)
-      ),
-      options
-    )
-  ]
+  // group data in: Vorrang geben, Halt- und Parkverbot, Kennzeichnung eines Schutzweg (Fußgängerübergang), Halt, Zonenbeschränkung (30) merged with Ende der Zonenbeschränkung (30)
+  var all = convertToHeatmapFormat(signData, intensityTotal)
+  var yield = DataOfType(signData, '52-23', intensity)
+  var parking = DataOfType(signData, '52-13b', intensity)
+  var crossing = DataOfType(signData, '53-02a', intensity)
+  var stop = DataOfType(signData, '52-24', intensity)
+  var zone = DataOfType(signData, '52-11b_01', intensity).concat(
+    DataOfType(signData, '52-11a_01', intensity)
+  )
+  return {
+    layers: [
+      L.heatLayer(all, options),
+      L.heatLayer(yield, options),
+      L.heatLayer(parking, options),
+      L.heatLayer(crossing, options),
+      L.heatLayer(stop, options),
+      L.heatLayer(zone, options)
+    ],
+    lengths: [
+      all.length,
+      yield.length,
+      parking.length,
+      crossing.length,
+      stop.length,
+      zone.length
+    ]
+  }
+}
+
+function updateSignCount(amount) {
+  const html = document.getElementById('amount')
+  html.innerHTML = `<strong>${amount}</strong> Schilder angezeigt`
 }
 
 function DataOfType(data, type, intensity) {

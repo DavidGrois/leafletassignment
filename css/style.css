@@ -25,6 +25,16 @@ body {
   z-index: 0;
 }
 
+#amount {
+  position: absolute;
+  margin: 0;
+  top: calc(5% + 5px);
+  right: 5px;
+  font-size: larger;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
 #right {
   height: 95vh;
   width: calc(30% - 20px);
@@ -104,6 +114,7 @@ button > p {
   color: darkblue;
   font-size: 1.4rem;
   margin: 0;
+  animation: pulse 1000ms ease-in-out 2000ms 2 normal forwards;
 }
 
 #infoBox {
@@ -246,4 +257,16 @@ button > p {
 .hidden {
   visibility: hidden;
   pointer-events: none;
+}
+
+@keyframes pulse {
+  from {
+    font-size: 1.4rem;
+  }
+  50% {
+    font-size: 1.8rem;
+  }
+  to {
+    font-size: 1.4rem;
+  }
 }

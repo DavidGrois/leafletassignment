@@ -34,10 +34,11 @@ const options = {
 
 // creates an array of heatmap layers, 0.65 and 0.8 are the intensity of the heat. 0.65 is for the layer with all data -> smaller value makes it readable
 // 0.8 is the intensity for every other layer
-var layers = groupData(data, 0.65, 0.8, options)
+var { layers, lengths } = groupData(data, 0.65, 0.8, options)
 
 // adds the layer with all data to the map as the layer shown when opening the webpage
 layers[0].addTo(map)
+updateSignCount(lengths[0])
 
 // adds a scale to the bottom left of the map
 L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map)
@@ -56,6 +57,7 @@ buttons.forEach((btnId, i) => {
       document.getElementById(id).classList.remove('active')
     )
     map.addLayer(layers[i])
+    updateSignCount(lengths[i])
     button.classList.add('active')
   }
 })
