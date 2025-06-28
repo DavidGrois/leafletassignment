@@ -38,6 +38,7 @@ var { layers, lengths } = groupData(data, 0.65, 0.8, options)
 
 // adds the layer with all data to the map as the layer shown when opening the webpage
 layers[0].addTo(map)
+// adds the amount shown text for the inital layers
 updateSignCount(lengths[0])
 
 // adds a scale to the bottom left of the map
@@ -57,6 +58,7 @@ buttons.forEach((btnId, i) => {
       document.getElementById(id).classList.remove('active')
     )
     map.addLayer(layers[i])
+    // updates count of signs in top right
     updateSignCount(lengths[i])
     button.classList.add('active')
   }

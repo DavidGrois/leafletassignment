@@ -62,6 +62,7 @@ function groupData(signData, intensityTotal, intensity, options) {
   }
 }
 
+// gets the p tag displaying the amount of signs shown and replaces the text with the amount given to the function
 function updateSignCount(amount) {
   const html = document.getElementById('amount')
   html.innerHTML = `<strong>${amount}</strong> Schilder angezeigt`
