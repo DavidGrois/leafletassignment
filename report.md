@@ -1,5 +1,3 @@
-[link to repo]()
-
 ### Target Audience
 
 The map is aimed at residents of Salzburg City. The interface and language are in German to reflect this. It’s not intended as a data tool, but as a visual showcase of road sign data in a form rarely seen.
