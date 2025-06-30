@@ -47,6 +47,10 @@ Each set of coordinates was converted to a Leaflet heatmap layer. The UI was bui
 - Optimize for mobile.
 - Add functionality to choose any road sign.
 - Add more drawing options, instead of just rectangle for more accuracy.
+- Improvements made after presentation
+  - I added a display showing the amount of sign currently used for the active heatmap.
+    This is supposed to help show the interesting parts about the data (e.g. the very few stop signs). This can also be achieved with the draw function but its not intuitive. The display is in the top right corner of the map with a blurred background for better readability.
+  - I added a small pulsing animation to the info button to grab the users attention and show them that it exists. I could also just have the info screen open when accessing the site, but I like the less optrusive version with the animation better.
 
 ---
 
